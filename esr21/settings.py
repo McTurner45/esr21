@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import configparser
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
 
 from django.core.management.color import color_style
 
@@ -47,12 +47,12 @@ config.read(CONFIG_PATH)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config['django'].get('secret_key', 'blah$blah$blah')
 
-KEY_PATH = os.path.join(ETC_DIR, 'crypto_fields')
+# KEY_PATH = os.path.join(ETC_DIR, 'crypto_fields')
 
 LIVE_SYSTEM = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'esr21.bhp.org.bw', '127.0.0.1']
 
@@ -81,6 +81,8 @@ INSTALLED_APPS = [
     'django_js_reverse',
     'rest_framework.authtoken',
     'crispy_forms',
+    'dal',
+    'dal_select2',
     'django_crypto_fields.apps.AppConfig',
     'edc_action_item.apps.AppConfig',
     'edc_calendar.apps.AppConfig',
@@ -103,6 +105,8 @@ INSTALLED_APPS = [
     'esr21_labs.apps.AppConfig',
     'esr21_prn.apps.AppConfig',
     'esr21_subject.apps.AppConfig',
+    'esr21_pharmacy.apps.AppConfig',
+    'esr21_pharmacy_dashboard.apps.AppConfig',
     'esr21_metadata_rules.apps.AppConfig',
     'esr21_reference.apps.AppConfig',
     'esr21_visit_schedule.apps.AppConfig',
@@ -177,21 +181,21 @@ DB_NAME = mysql_config['mysql']['database']
 PORT = mysql_config['mysql']['port']
 
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': DB_NAME,
-         'USER': DB_USER,
-         'PASSWORD': DB_PASSWORD,
-         'HOST': HOST,  # Or an IP Address that your DB is hosted on
-         'PORT': PORT,
-     }
- }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': HOST,  # Or an IP Address that your DB is hosted on
+        'PORT': PORT,
+    }
+}
 
 # DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
+# 'default': {
+# 'ENGINE': 'django.db.backends.sqlite3',
+# 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# }
 # }
 
 # Password validation
@@ -263,6 +267,10 @@ DASHBOARD_URL_NAMES = {
     'esr21_follow_booking_listboard_url': 'esr21_follow:esr21_follow_booking_listboard_url',
     'esr21_follow_book_listboard_url': 'esr21_follow:esr21_follow_book_listboard_url',
     'esr21_reports_home_url': 'esr21_reports:esr21_reports_home_url',
+    'esr21_pharma_dashboard_url': 'esr21_pharmacy_dashboard:esr21_pharmacy_home_url',
+    'pharma_requisitions_listboard': 'esr21_pharmacy_dashboard:pharma_requisitions_listboard',
+    'pharma_accountability_log_listboard': 'esr21_pharmacy_dashboard:accountability_log_listboard_url',
+
 }
 
 LAB_DASHBOARD_BASE_TEMPLATES = {}
@@ -279,6 +287,8 @@ DASHBOARD_BASE_TEMPLATES = {
     'esr21_follow_appt_listboard_template': 'esr21_follow/appointments_windows_listboards.html',
     'esr21_follow_booking_listboard_template': 'esr21_follow/bookings_listboard.html',
     'esr21_follow_book_listboard_template': 'esr21_follow/book_listboard.html',
+    'esr21_pharma_requisitions_listboard_template': 'esr21_pharmacy/requisitions/listboard.html',
+    'esr21_pharma_accountability_log_listboard_template': 'esr21_pharmacy/accountability_log/listboard.html',
 }
 
 # edc_facility
